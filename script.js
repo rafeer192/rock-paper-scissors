@@ -34,14 +34,15 @@ function playGame() {
   if(humanScore > computerScore) {
     console.log(`CONGRATULATIONS! You won with a score of ${humanScore} - ${computerScore}`); 
   } else if(computerScore > humanScore) {
-    console.log(`You LOST the overall game with a score of ${humanScore} - ${computerScore}`); 
+    console.log(`Game over! You LOST with a score of ${humanScore} - ${computerScore}`); 
   } else {
     console.log(`You and the computer TIED with a score of ${humanScore} - ${computerScore}`); 
   }
 
   function playRound(humanChoice, computerChoice) {
+    console.log(`The computer chose: ${computerChoice}`); 
     if(humanChoice === computerChoice) {
-      console.log(`It's a TIE! (You chose ${humanChoice} and your opponent also chose ${computerChoice})`); 
+      console.log(`It's a TIE! (You both chose ${humanChoice})`); 
     } 
     else if(humanChoice === "scissors" && computerChoice === "paper" || 
             humanChoice === "paper" && computerChoice === "rock" || 
