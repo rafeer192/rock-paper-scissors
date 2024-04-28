@@ -1,5 +1,8 @@
+let humanScore = 0; 
+let computerScore = 0; 
+
 function getComputerChoice() {
-  let computerChoice; 
+  let computerChoice = ""; 
   const randomValue = Math.floor(Math.random() * 3); 
 
   if(randomValue === 0) {
@@ -22,4 +25,23 @@ function getHumanChoice() {
   return humanChoice; 
 }
 
-console.log(getHumanChoice()); 
+function playRound(humanChoice, computerChoice) {
+  if(humanChoice === computerChoice) {
+    console.log(`It's a TIE! (You chose ${humanChoice} and your opponent also chose ${computerChoice})`); 
+  } 
+  else if(humanChoice === "scissors" && computerChoice === "paper" || 
+          humanChoice === "paper" && computerChoice === "rock" || 
+          humanChoice === "rock" && computerChoice === "scissors") {
+    console.log(`You WIN! (${humanChoice} beats ${computerChoice})`); 
+    humanScore++; 
+  }
+  else {
+    console.log(`You LOSE! (${computerChoice} beats ${humanChoice})`); 
+    computerScore++; 
+  }
+}
+
+const humanSelection = getHumanChoice(); 
+const computerSelection = getComputerChoice(); 
+
+playRound(humanSelection, computerSelection); 
