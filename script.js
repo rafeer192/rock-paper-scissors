@@ -21,7 +21,7 @@ function getHumanChoice() {
   humanChoice = humanChoice.trim().toLowerCase(); 
   while(humanChoice !== "rock" && humanChoice !== "paper" && humanChoice !== "scissors") {
     humanChoice = prompt("Invalid entry. Please enter rock, paper, or scissors"); 
-    humanChoice = humanChoice.trim().toLowerCase(); 
+    humanChoice = humanChoice.trim().toLowerCase();  //all lowercase for easy comparisons
   }
   return humanChoice; 
 }
@@ -40,7 +40,7 @@ function playGame() {
   }
 
   function playRound(humanChoice, computerChoice) {
-    console.log(`The computer chose: ${computerChoice}`); 
+    console.log(`The computer chose: ${computerChoice}`);  //so user can know clearly what computer chose
     if(humanChoice === computerChoice) {
       console.log(`It's a TIE! (You both chose ${humanChoice})`); 
     } 
