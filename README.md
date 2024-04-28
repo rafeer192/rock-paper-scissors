@@ -1,1 +1,2 @@
 # rock-paper-scissors
+This program is a best-of-5 game of rock-paper-scissors between the user and the computer, whose choice will be chosen at random each round. As of now, this game will be played via the browser console. A GUI version is coming soon. 
