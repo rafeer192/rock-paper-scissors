@@ -9,19 +9,27 @@ const scissorBtn = document.querySelector(".container .scissors");
 const resultList = document.querySelector(".results"); 
 
 function rockHandler() {
+  paperBtn.classList.remove("chosen"); 
+  scissorBtn.classList.remove("chosen"); 
+  rockBtn.classList.toggle("chosen"); 
   playRound("rock", getComputerChoice()); 
 }
 function paperHandler() {
+  rockBtn.classList.remove("chosen"); 
+  scissorBtn.classList.remove("chosen"); 
+  paperBtn.classList.toggle("chosen"); 
   playRound("paper", getComputerChoice()); 
 }
 function scissorHandler() {
+  paperBtn.classList.remove("chosen"); 
+  rockBtn.classList.remove("chosen"); 
+  scissorBtn.classList.toggle("chosen"); 
   playRound("scissors", getComputerChoice()); 
 }
 
 rockBtn.addEventListener("click", rockHandler); 
 paperBtn.addEventListener("click", paperHandler); 
 scissorBtn.addEventListener("click", scissorHandler); 
-
 
 function getComputerChoice() {
   let computerChoice = ""; 
@@ -66,12 +74,15 @@ function playRound(humanChoice, computerChoice) {
 
 
 function endGame() {
-  rockBtn.removeEventListener("click", rockHandler); 
+  rockBtn.removeEventListener("click", rockHandler);  // want to prevent game from continuing
   paperBtn.removeEventListener("click", paperHandler); 
   scissorBtn.removeEventListener("click", scissorHandler); 
+
   const finalScoreMsg = document.createElement("p"); 
   const replayBtn = document.createElement("button"); 
   replayBtn.textContent = "Play Again"; 
+  replayBtn.classList.add("replay-btn");
+
   finalScoreMsg.textContent = "GAME OVER! "
   if(humanScore > computerScore) {
     finalScoreMsg.textContent += `You WON ${humanScore} - ${computerScore}`; 
@@ -83,9 +94,9 @@ function endGame() {
     finalScoreMsg.textContent += `You TIED ${humanScore} - ${computerScore}`; 
   }
   resultList.appendChild(finalScoreMsg); 
-  resultList.appendChild(replayBtn); 
   replayBtn.addEventListener("click", () => {
     location.reload(); 
   });
+  resultList.appendChild(replayBtn); 
 }
 
