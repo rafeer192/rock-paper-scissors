@@ -8,58 +8,70 @@ const paperBtn = document.querySelector(".container .paper");
 const scissorBtn = document.querySelector(".container .scissors"); 
 const resultList = document.querySelector(".results"); 
 
+function rockHandler() {
+  playRound("rock", getComputerChoice()); 
+}
+function paperHandler() {
+  playRound("paper", getComputerChoice()); 
+}
+function scissorHandler() {
+  playRound("scissors", getComputerChoice()); 
+}
 
-  rockBtn.addEventListener("click", () => {
-    playRound("rock", getComputerChoice()); 
-  }); 
-  paperBtn.addEventListener("click", () => {
-    playRound("paper", getComputerChoice()); 
-  }); 
-  scissorBtn.addEventListener("click", () => {
-    playRound("scissors", getComputerChoice()); 
-  }); 
+rockBtn.addEventListener("click", rockHandler); 
+paperBtn.addEventListener("click", paperHandler); 
+scissorBtn.addEventListener("click", scissorHandler); 
 
-  function getComputerChoice() {
-    let computerChoice = ""; 
-    const randomValue = Math.floor(Math.random() * 3); 
 
-    if(randomValue === 0) {
-      computerChoice = "rock"; 
-    } else if (randomValue === 1) {
-      computerChoice = "paper"; 
-    } else {
-      computerChoice = "scissors"; 
-    }
-    return computerChoice; 
+function getComputerChoice() {
+  let computerChoice = ""; 
+  const randomValue = Math.floor(Math.random() * 3); 
+
+  if(randomValue === 0) {
+    computerChoice = "rock"; 
+  } else if (randomValue === 1) {
+    computerChoice = "paper"; 
+  } else {
+    computerChoice = "scissors"; 
   }
+  return computerChoice; 
+}
 
-  function playRound(humanChoice, computerChoice) {
-    const winnerMessage = document.createElement("p"); 
-    const scoreUpdate = document.createElement("p"); 
-    winnerMessage.textContent = `Round ${roundNum}: The computer chose ${computerChoice}. `;  //user knows clearly what computer chose
-    if(humanChoice === computerChoice) {
-      winnerMessage.textContent += `It's a TIE! (You both chose ${humanChoice})`; 
-    } 
-    else if(humanChoice === "scissors" && computerChoice === "paper" || 
-            humanChoice === "paper" && computerChoice === "rock" || 
-            humanChoice === "rock" && computerChoice === "scissors") {
-      winnerMessage.textContent += `You WIN! (${humanChoice} beats ${computerChoice})`; 
-      humanScore++; 
-    }
-    else {
-      winnerMessage.textContent += `You LOSE! (${computerChoice} beats ${humanChoice})`; 
-      computerScore++; 
-    }
-    scoreUpdate.textContent = `Current score is ${humanScore} - ${computerScore}`; 
-    resultList.appendChild(winnerMessage); 
-    resultList.appendChild(scoreUpdate); 
+function playRound(humanChoice, computerChoice) {
+  const winnerMessage = document.createElement("p"); 
+  const scoreUpdate = document.createElement("p"); 
+  winnerMessage.textContent = `Round ${roundNum}: The computer chose ${computerChoice}. `;  //user knows clearly what computer chose
+  if(humanChoice === computerChoice) {
+    winnerMessage.textContent += `It's a TIE! (You both chose ${humanChoice})`; 
+  } 
+  else if(humanChoice === "scissors" && computerChoice === "paper" || 
+          humanChoice === "paper" && computerChoice === "rock" || 
+          humanChoice === "rock" && computerChoice === "scissors") {
+    winnerMessage.textContent += `You WIN! (${humanChoice} beats ${computerChoice})`; 
+    humanScore++; 
+  }
+  else {
+    winnerMessage.textContent += `You LOSE! (${computerChoice} beats ${humanChoice})`; 
+    computerScore++; 
+  }
+  scoreUpdate.textContent = `Current score is ${humanScore} - ${computerScore}`; 
+  resultList.appendChild(winnerMessage); 
+  resultList.appendChild(scoreUpdate); 
+  if(roundNum === 5) {
+    endGame(); 
+  } else {
     roundNum++; 
-    if(roundNum === 5) endGame(); 
   }
+}
 
 
 function endGame() {
+  rockBtn.removeEventListener("click", rockHandler); 
+  paperBtn.removeEventListener("click", paperHandler); 
+  scissorBtn.removeEventListener("click", scissorHandler); 
   const finalScoreMsg = document.createElement("p"); 
+  const replayBtn = document.createElement("button"); 
+  replayBtn.textContent = "Play Again"; 
   finalScoreMsg.textContent = "GAME OVER! "
   if(humanScore > computerScore) {
     finalScoreMsg.textContent += `You WON ${humanScore} - ${computerScore}`; 
@@ -71,5 +83,9 @@ function endGame() {
     finalScoreMsg.textContent += `You TIED ${humanScore} - ${computerScore}`; 
   }
   resultList.appendChild(finalScoreMsg); 
+  resultList.appendChild(replayBtn); 
+  replayBtn.addEventListener("click", () => {
+    location.reload(); 
+  });
 }
 
