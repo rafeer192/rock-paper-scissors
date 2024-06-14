@@ -11,19 +11,22 @@ const resultList = document.querySelector(".results");
 function rockHandler() {
   paperBtn.classList.remove("chosen"); 
   scissorBtn.classList.remove("chosen"); 
-  rockBtn.classList.toggle("chosen"); 
+  if(!rockBtn.classList.contains("chosen"))
+    rockBtn.classList.add("chosen"); 
   playRound("rock", getComputerChoice()); 
 }
 function paperHandler() {
   rockBtn.classList.remove("chosen"); 
   scissorBtn.classList.remove("chosen"); 
-  paperBtn.classList.toggle("chosen"); 
+  if(!paperBtn.classList.contains("chosen"))
+    paperBtn.classList.add("chosen"); 
   playRound("paper", getComputerChoice()); 
 }
 function scissorHandler() {
   paperBtn.classList.remove("chosen"); 
   rockBtn.classList.remove("chosen"); 
-  scissorBtn.classList.toggle("chosen"); 
+  if(!scissorBtn.classList.contains("chosen"))
+    scissorBtn.classList.add("chosen"); 
   playRound("scissors", getComputerChoice()); 
 }
 
@@ -63,6 +66,7 @@ function playRound(humanChoice, computerChoice) {
     computerScore++; 
   }
   scoreUpdate.textContent = `Current score is ${humanScore} - ${computerScore}`; 
+  scoreUpdate.style.marginBottom = "18px";
   resultList.appendChild(winnerMessage); 
   resultList.appendChild(scoreUpdate); 
   if(roundNum === 5) {
@@ -81,17 +85,20 @@ function endGame() {
   const finalScoreMsg = document.createElement("p"); 
   const replayBtn = document.createElement("button"); 
   replayBtn.textContent = "Play Again"; 
-  replayBtn.classList.add("replay-btn");
+  finalScoreMsg.classList.add("final-msg"); 
 
   finalScoreMsg.textContent = "GAME OVER! "
   if(humanScore > computerScore) {
     finalScoreMsg.textContent += `You WON ${humanScore} - ${computerScore}`; 
+    finalScoreMsg.style.cssText = "color: green"; 
   }
   else if(humanScore < computerScore) {
     finalScoreMsg.textContent += `You LOST ${humanScore} - ${computerScore}`; 
+    finalScoreMsg.style.cssText = "color: red"; 
   }
   else {
     finalScoreMsg.textContent += `You TIED ${humanScore} - ${computerScore}`; 
+    finalScoreMsg.style.cssText = "color: blue"; 
   }
   resultList.appendChild(finalScoreMsg); 
   replayBtn.addEventListener("click", () => {
